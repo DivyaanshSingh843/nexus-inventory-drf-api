@@ -25,7 +25,9 @@ services:
       - "11211:11211"
 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nexus_django_api
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -52,7 +54,9 @@ services:
         condition: service_started
 
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nexus_celery_worker
     command: celery -A config worker --loglevel=info
     volumes:

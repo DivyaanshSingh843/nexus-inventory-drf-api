@@ -31,6 +31,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'total_amount']
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Order.objects.none()
         user = self.request.user
         # Base QuerySet with prefetch_related for 0 extra queries (N+1 solution)
         qs = Order.objects.with_details()

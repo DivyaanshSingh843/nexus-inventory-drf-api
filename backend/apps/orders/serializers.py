@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 from apps.inventory.models import Product
 from .models import Order, OrderItem, OrderStatus
 
@@ -32,6 +33,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ('id', 'order_number', 'client', 'total_amount', 'created_at', 'updated_at')
 
+    @extend_schema_field(serializers.CharField())
     def get_client_name(self, obj):
         return f"{obj.client.first_name} {obj.client.last_name}".strip() or obj.client.email
 

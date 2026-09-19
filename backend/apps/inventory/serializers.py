@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_spectacular.utils import extend_schema_field
 from .models import Category, Product, StockMovement, StockMovementType
 
 
@@ -13,6 +14,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
+    is_low_stock = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Product
@@ -42,6 +44,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(), source='category', write_only=True
     )
+    is_low_stock = serializers.BooleanField(read_only=True)
     recent_movements = serializers.SerializerMethodField()
 
     class Meta:
@@ -53,6 +56,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ('id', 'is_low_stock', 'created_at', 'updated_at')
 
+    @extend_schema_field(serializers.ListField(child=serializers.DictField()))
     def get_recent_movements(self, obj):
         movements = obj.stock_movements.all()[:5]
         return StockMovementSerializer(movements, many=True).data

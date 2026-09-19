@@ -1,31 +1,55 @@
-# Python
+# ─── Python / Django (backend/) ───────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
-venv/
-ENV/
-.venv/
 
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media/
-staticfiles/
+# Virtual environments
+backend/venv/
+backend/env/
+backend/ENV/
+backend/.venv/
 
-# Pytest & Coverage
+# Django generated
+backend/*.log
+backend/local_settings.py
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/media/
+backend/staticfiles/
+
+# Pytest & coverage
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
 .pytest_cache/
 .coverage
 htmlcov/
 
-# Environment variables
-.env
+# ─── Node / React (frontend/) ─────────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
 
-# IDEs & OS
+# ─── Environment & Secrets ────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+backend/.env
+frontend/.env
+
+# ─── IDEs & OS ────────────────────────────────────────────────────────────────
 .vscode/
 .idea/
+*.swp
+*.swo
 .DS_Store
+Thumbs.db
+
+# ─── Misc ─────────────────────────────────────────────────────────────────────
+*.log
+*.pid
+*.seed
+*.pid.lock
